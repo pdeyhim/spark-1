@@ -15,20 +15,11 @@
  * limitations under the License.
  */
 
-package org.apache.spark.streaming.kinesis;
+package org.apache.spark.examples.terasort
 
-
-import org.junit.Test;
-import org.apache.spark.storage.StorageLevel;
-import org.apache.spark.streaming.LocalJavaStreamingContext;
-import org.apache.spark.streaming.api.java.JavaDStream;
-
-public class JavaKinesisStreamSuite extends LocalJavaStreamingContext {
-  @Test
-  public void testKinesisStream() {
-   
-    JavaDStream<String> test1 = KinesisUtils.createStream(ssc,
-      "x", "y", "z","1",StorageLevel.MEMORY_AND_DISK_SER_2());
-  }
+/** A simple wrapper around a byte array to store terasort data. */
+class RecordWrapper(val bytes: Array[Byte]) extends Product2[Array[Byte], Array[Byte]] {
+  override def _1 = bytes
+  override def _2 = bytes
+  override def canEqual(that: Any): Boolean = ???
 }
- 
